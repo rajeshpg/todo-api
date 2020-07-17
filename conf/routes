@@ -5,8 +5,13 @@
 
 # Map static resources from the /public folder to the /assets URL path
 
-POST        /auth              login.LoginController.auth
+POST        /auth               login.LoginController.auth
 
-POST        /todos             todo.TodoController.create
+POST        /todos              todo.TodoController.create
 
-GET         /user/todos        todo.TodoController.getTodoForUser
+GET         /todos              todo.TodoController.getTodoForUser
+
+GET         /todos/after        todo.TodoController.getTodosAfter
+
+GET         /todos/before        todo.TodoController.getTodosBefore
+

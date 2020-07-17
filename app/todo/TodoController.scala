@@ -29,4 +29,24 @@ class TodoController @Inject()(controllerComponents: SecuredControllerComponents
     todoRepository.fetchByUserName(userName).map(todos => Ok(Json.toJson(todos)))
   }
 
+  def getTodosAfter = AuthenticatedAction.async { implicit request =>
+    val userName = request.userSession.userName
+    val id: Option[String] = request.getQueryString("id")
+
+    id match {
+      case None => Future(BadRequest("id is required"))
+      case Some(id) => todoRepository.fetchAfter(userName, id).map(todos => Ok(Json.toJson(todos)))
+    }
+  }
+
+    def getTodosBefore = AuthenticatedAction.async { implicit request =>
+      val userName = request.userSession.userName
+      val id: Option[String] = request.getQueryString("id")
+
+      id match {
+        case None => Future(BadRequest("id is required"))
+        case Some(id) => todoRepository.fetchBefore(userName, id).map(todos => Ok(Json.toJson(todos)))
+      }
+    }
+
 }
