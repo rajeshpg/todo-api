@@ -10,8 +10,6 @@ import scala.concurrent.Future
 
 class TodoController @Inject()(controllerComponents: SecuredControllerComponents, todoRepository: TodoRepository) extends SecuredController(controllerComponents) {
 
-  val todos: mutable.Map[String, List[Todo]] = mutable.Map.empty[String, List[Todo]]
-
   def create = AuthenticatedAction(parse.json).async { implicit request =>
     val todoJson = request.body.validate[Todo]
     todoJson.fold(
@@ -26,6 +24,7 @@ class TodoController @Inject()(controllerComponents: SecuredControllerComponents
 
   def getTodoForUser = AuthenticatedAction.async { implicit request =>
     val userName = request.userSession.userName
+    println("fetch for user "+userName)
     todoRepository.fetchByUserName(userName).map(todos => Ok(Json.toJson(todos)))
   }
 
