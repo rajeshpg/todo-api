@@ -1,7 +1,6 @@
 
 
-start mongodb
-`docker run --name todo -d -p 27017:27017 mongo`
+start mongodb `docker run --name todo -d -p 27017:27017 mongo`
 
 start the app
 `sbt run`
